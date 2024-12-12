@@ -11,6 +11,10 @@ export class FilmeService {
             filme);
     }
 
+    getAllFilmes = async (IDUsuario: string) => {
+        return 
+    }
+
 }
 
 export const filmeService = new FilmeService();

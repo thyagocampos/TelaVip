@@ -1,12 +1,18 @@
 import fastify from "fastify";
+import cors from '@fastify/cors'; 
+
 import { routeUsuarios } from "./routes/usuarios/usuarios.route";
 import { routeIMDB } from "./routes/usuarios/imdb.route";
 import { routeFilmes } from "./routes/usuarios/filme.routes";
-import * as jwt from "jsonwebtoken";
 
 export const app = fastify();
 
-const secret: string = "p@$$w0rd.chk000123";
+// Registrar o plugin de CORS
+app.register(cors, {
+    origin: 'http://localhost:3001', // Permitir apenas o frontend rodando na porta 3001
+    methods: ['GET', 'POST', 'PUT', 'DELETE'], // Definir os métodos HTTP permitidos
+    allowedHeaders: ['Content-Type', 'Authorization'], // Definir os cabeçalhos permitidos
+});
 
 app.register(routeUsuarios, { prefix: '/api' });
 app.register(routeIMDB, { prefix: '/api' });
