@@ -1,5 +1,7 @@
 export interface IFilme {
+    id: number;
+    id_usuario: string;    
+    nome: string;
     plot: string;
-    nome: string;    
-    url_img: string;
+    urlimagem: string;    
 }

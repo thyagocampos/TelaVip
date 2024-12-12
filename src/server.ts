@@ -1,11 +1,16 @@
 import fastify from "fastify";
 import { routeUsuarios } from "./routes/usuarios/usuarios.route";
 import { routeIMDB } from "./routes/usuarios/imdb.route";
+import { routeFilmes } from "./routes/usuarios/filme.routes";
+import * as jwt from "jsonwebtoken";
 
 export const app = fastify();
 
-app.register(routeUsuarios, { prefix: '/api'});
-app.register(routeIMDB, { prefix: '/api'});
+const secret: string = "p@$$w0rd.chk000123";
+
+app.register(routeUsuarios, { prefix: '/api' });
+app.register(routeIMDB, { prefix: '/api' });
+app.register(routeFilmes, { prefix: '/api' });
 
 app.listen({ port: 3000 }, (err, resp) => {
     if (err) {

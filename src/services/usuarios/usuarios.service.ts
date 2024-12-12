@@ -16,7 +16,6 @@ export class UsuariosService {
         return await this.usuariosDao.postUser(
             "INSERT INTO TB_USUARIOS (ID, NOME, EMAIL, SENHA) VALUES (?, ?, ?, ?)",
             usuario);
-
     }
 
     findByEmail = async (email: string) => {

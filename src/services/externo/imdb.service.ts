@@ -1,5 +1,5 @@
 import axios, { AxiosInstance } from 'axios';
-import { IFilme } from '../../models/filme.interface';
+import { IFilmeIMDB } from '../../models/filmeIMDB.interface';
 
 export class IMDBService {
 
@@ -26,13 +26,13 @@ export class IMDBService {
                 baseURL: this.apiUrl,
             });
 
-            console.log("Parâmetros enviados:" + params);
+            console.log("Parâmetros IMDB retornados:" + params);
 
             const response = await this.axiosInstance.get('', { params });
 
             if (response.data.Response === 'True') {
                 // Mapeia os dados para o formato da interface IFilme
-                const filme: IFilme = {
+                const filme: IFilmeIMDB = {
                     plot: response.data.Plot,
                     nome: response.data.Title,
                     url_img: response.data.Poster,
