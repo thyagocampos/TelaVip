@@ -18,6 +18,11 @@ export class FilmeService {
         );
     }
 
+    deleteFilme = async (IDFilme: number) => {
+        return await this, this.genericDao.delete(
+            "DELETE FROM TB_FILMES WHERE ID = ?"
+            , IDFilme);
+    }
 }
 
 export const filmeService = new FilmeService();

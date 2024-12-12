@@ -2,3 +2,6 @@ node_modules/
 .vscode/
 db/
 telavip.db
+index.html
+package-lock.json
+db/telavip.db

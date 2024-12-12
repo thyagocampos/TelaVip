@@ -22,11 +22,11 @@ export class FilmeController {
                 if (usuario?.id) {
                     newFilme.id_usuario = usuario?.id;
 
-                    console.log(newFilme);
+                    const filmeResposta = await filmeService.postFilme(newFilme);
 
-                    filmeService.postFilme(newFilme);
+                    console.log(filmeResposta);
 
-                    response.status(201).send(newFilme);
+                    response.status(201).send(filmeResposta);
                 }
             }
         }
@@ -51,8 +51,31 @@ export class FilmeController {
 
                 return filmes;
             }
-            else{
-                response.code(401).send({ message: 'Usuário inválido' });    
+            else {
+                response.code(401).send({ message: 'Usuário inválido' });
+            }
+        }
+        else {
+            response.code(401).send({ message: 'Token inválido' });
+        }
+    }
+
+    deleteFilme = async (request: FastifyRequest, response: FastifyReply) => {
+
+        const { IDFilme } = request.params as { IDFilme: number };
+
+        const token = request.headers.authorization?.replace(/^Bearer /, "");
+
+        if (token) {
+            const usuario = await usuarioController.verifyToken(token);
+
+            if (usuario) {
+                const resposta = filmeService.deleteFilme(IDFilme);
+
+                response.status(200).send({ resposta });
+            }
+            else {
+                response.code(401).send({ message: 'Usuário inválido' });
             }
         }
         else {
