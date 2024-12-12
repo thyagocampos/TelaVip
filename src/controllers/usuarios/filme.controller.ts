@@ -18,10 +18,10 @@ export class FilmeController {
 
             console.log(usuario);
 
-            if(usuario) {
+            if (usuario) {
                 if (usuario?.id) {
                     newFilme.id_usuario = usuario?.id;
-                    
+
                     console.log(newFilme);
 
                     filmeService.postFilme(newFilme);
@@ -41,10 +41,24 @@ export class FilmeController {
 
         const { IDUsuario } = request.params as { IDUsuario: string };
 
-        const filmes = filmeService.getAllFilmes(IDUsuario);
+        const token = request.headers.authorization?.replace(/^Bearer /, "");
 
-        return filmes;
-        
+        if (token) {
+            const usuario = await usuarioController.verifyToken(token);
+
+            if (usuario) {
+                const filmes = filmeService.getAllFilmes(IDUsuario);
+
+                return filmes;
+            }
+            else{
+                response.code(401).send({ message: 'Usuário inválido' });    
+            }
+        }
+        else {
+            response.code(401).send({ message: 'Token inválido' });
+        }
+
     }
 }
 
