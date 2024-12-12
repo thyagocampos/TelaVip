@@ -37,7 +37,7 @@ export class UsuariosController {
             );
 
 
-            response.status(200).send({ token, id:usuario.id });
+            response.status(200).send({ token, id: usuario.id, nome: usuario.nome });
         } catch (error: any) {
             response.status(500).send({ message: "Erro interno", error: error.message });
         }
