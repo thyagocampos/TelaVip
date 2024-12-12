@@ -1,13 +1,13 @@
 import { db } from "./dao";
 
 export class GenericDao<T> {
-    async getAll(sql: string) {
+    
+    async getAll(sql: string,  id: string) {
         return new Promise<T[]>((resolve, reject) => {
 
-            db.all<T>(sql, (err, rows) => {
+            db.all<T>(sql, id, (err, rows) => {
                 if (err) {
                     reject(err);
-
                 }
 
                 resolve(rows);

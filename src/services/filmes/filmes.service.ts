@@ -12,7 +12,10 @@ export class FilmeService {
     }
 
     getAllFilmes = async (IDUsuario: string) => {
-        return 
+        return await this.genericDao.getAll(
+            "SELECT * FROM TB_FILMES WHERE ID_USUARIO =?",
+            IDUsuario
+        );
     }
 
 }

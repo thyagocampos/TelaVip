@@ -75,7 +75,7 @@ export class UsuariosController {
 
             const message = (error as Error).message;
 
-            console.error("Erro ao verificar token" + message);
+            console.error("Erro ao verificar token " + message);
             return null;
         }
     }

@@ -9,31 +9,43 @@ export class FilmeController {
 
     postFilme = async (request: FastifyRequest, response: FastifyReply) => {
 
-        const newFilme = request.body as IFilme;        
+        const newFilme = request.body as IFilme;
 
         const token = request.headers.authorization?.replace(/^Bearer /, "");
 
         if (token) {
-            const usuario = usuarioController.verifyToken(token);
+            const usuario = await usuarioController.verifyToken(token);
 
-            usuario.then((usuario) => {
+            console.log(usuario);
 
-                if (usuario?.id){
-                    newFilme.id_usuario = usuario?.id;                    
+            if(usuario) {
+                if (usuario?.id) {
+                    newFilme.id_usuario = usuario?.id;
+                    
+                    console.log(newFilme);
 
                     filmeService.postFilme(newFilme);
 
-                    console.log(newFilme);
-                }                                    
-            })
+                    response.status(201).send(newFilme);
+                }
+            }
         }
         else {
             response.code(401).send({ message: 'Token inválido' });
         }
 
-        response.status(201).send(newFilme);
+        response.code(401).send({ message: 'Erro ao adicionar filme' });
     }
 
+    getAll = async (request: FastifyRequest, response: FastifyReply) => {
+
+        const { IDUsuario } = request.params as { IDUsuario: string };
+
+        const filmes = filmeService.getAllFilmes(IDUsuario);
+
+        return filmes;
+        
+    }
 }
 
 export const filmeController = new FilmeController();
