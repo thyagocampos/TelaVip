@@ -12,7 +12,7 @@ app.register(routeUsuarios, { prefix: '/api' });
 app.register(routeIMDB, { prefix: '/api' });
 app.register(routeFilmes, { prefix: '/api' });
 
-app.listen({ port: 3000 }, (err, resp) => {
+app.listen({ port: 3000, host: '0.0.0.0' }, (err, resp) => {
     if (err) {
         console.log(err);
 
