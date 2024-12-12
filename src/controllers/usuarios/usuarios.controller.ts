@@ -36,7 +36,8 @@ export class UsuariosController {
                 { expiresIn: "1h" }
             );
 
-            response.status(200).send({ token });
+
+            response.status(200).send({ token, id:usuario.id });
         } catch (error: any) {
             response.status(500).send({ message: "Erro interno", error: error.message });
         }
